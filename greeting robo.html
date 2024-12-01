@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greeting Robot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url('/storage/emulated/0/Download/img3.jpeg');
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .container {
+      background-color: #FFDAB9;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      animation: rotateShadow 5s linear infinite;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0px 4px 20px rgba(128, 0, 128, 0.5), 
+                 20px 4px 20px rgba(255, 165, 0, 0.5), 
+                 4px 20px 20px rgba(137, 207, 240, 0.5), 
+                 -20px 4px 20px rgba(245, 255, 220, 0.5);
+    }
+
+    @keyframes rotateShadow {
+      0%, 100% {
+        box-shadow: 0px 4px 20px rgba(128, 0, 128, 0.5), 
+                   20px 4px 20px rgba(255, 165, 0, 0.3), 
+                   4px 20px 20px rgba(137, 207, 240, 0.5), 
+                   -20px 4px 20px rgba(245, 255, 220, 0.3);
+      }
+      50% {
+        box-shadow: 20px 4px 20px rgba(128, 0, 128, 0.5), 
+                   4px 20px 20px rgba(255, 165, 0, 0.3), 
+                   -20px 4px 20px rgba(137, 207, 240, 0.5), 
+                   0px 4px 20px rgba(245, 255, 220, 0.3);
+      }
+    }
+    
+    h1 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+      font-size: 1em;
+      margin-top: 15px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #greetingMessage {
+      color: #4CAF50;
+      font-size: 1.5em;
+      margin-top: 20px;
+      min-height: 50px;
+    }
+
+    .typing {
+      display: inline-block;
+      border-right: 2px solid #333;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  </style>
+  
+  <script>
+    function greetUser() {
+      var name = document.getElementById("name").value;
+      var date = new Date();
+      var hours = date.getHours();
+      var greeting;
+      var greetings = [
+        "Good Morning ☀️",
+        "Good Afternoon 🌞",
+        "Good Evening 🌙"
+      ];
+      var randomMessages = [
+        "Hope you're having a fantastic day! 😊",
+        "Stay positive and keep smiling! 😎",
+        "You're doing great, keep going! 💪",
+        "Wishing you a day full of joy and laughter! 😇"
+      ];
+
+      if (hours < 12) {
+        greeting = greetings[0];
+      } else if (hours < 16) {
+        greeting = greetings[1];
+      } else {
+        greeting = greetings[2];
+      }
+
+      var index = Math.floor(Math.random() * randomMessages.length);
+      var message = greeting + ", " + name + "! " + randomMessages[index];
+
+      typeMessage(message);
+    }
+
+    function typeMessage(message) {
+      var greetingElement = document.getElementById("greetingMessage");
+      greetingElement.innerHTML = "";
+      let i = 0;
+      var typingInterval = setInterval(function() {
+        if (i < message.length) {
+          greetingElement.innerHTML += message.charAt(i);
+          i++;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, 100); 
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Hello👋, It's your Greeting Robot🤖</h1>
+    <h2>Enter your name please:</h2>
+    <input type="text" id="name" placeholder="Your Name">
+    <br><br>
+    <button onclick="greetUser()">Submit</button>
+    <h2 id="greetingMessage"></h2>
+  </div>
+</body>
+</html>
